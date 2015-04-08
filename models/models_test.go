@@ -9,28 +9,31 @@ import (
 	"gopkg.in/gorp.v1"
 )
 
-func testError(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-func initDb(droptable bool) *gorp.DbMap {
+func initTestDb(droptable bool) *gorp.DbMap {
 	db, err := sql.Open("sqlite3", "/tmp/post_db.bin")
-	testError(err)
+	checkTestErr(err)
 
 	dbmap := &gorp.DbMap{Db: db, Dialect: gorp.SqliteDialect{}}
 	dbmap.TraceOn("[gorp]", log.New(os.Stdout, "myapp:", log.Lmicroseconds))
 
-	initDbMap(dbmap)
+	InitDbMap(dbmap)
 
 	if droptable {
 		err = dbmap.DropTablesIfExists()
-		testError(err)
+		checkTestErr(err)
 	}
 
 	err = dbmap.CreateTablesIfNotExists()
-	testError(err)
+	checkTestErr(err)
+
+	role := &Role{Name: "Admin", Scope: RoleGlobal}
+	checkTestErr(role.Save(dbmap))
 
 	return dbmap
+}
+
+func checkTestErr(err error) {
+	if err != nil {
+		panic(err)
+	}
 }

@@ -10,7 +10,7 @@ type Dashboard struct {
 	UpdatedAt time.Time
 	Name      string
 	Config    string
-	ProjectId int
+	ProjectID int
 	Private   bool
 	Owner     User
 }
