@@ -1,0 +1,3 @@
+package goboard
+
+import ()
