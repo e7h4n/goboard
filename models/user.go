@@ -21,14 +21,13 @@ func initUserTable(dbmap *gorp.DbMap) {
 }
 
 // GetUserByID will retrieve a user by specified user id
-func GetUserByID(id int, dbmap *gorp.DbMap) *User {
-	user := &User{}
+func GetUserByID(id int, dbmap *gorp.DbMap) (user *User) {
 	err := dbmap.SelectOne(&user, "select * from users where id = ?", id)
 	if err != nil {
 		return nil
 	}
 
-	return user
+	return
 }
 
 // GetAllUser will retrieve all users
@@ -70,9 +69,20 @@ func (u *User) Save(dbmap *gorp.DbMap) (err error) {
 		u.ResetSalt()
 	}
 
-	err = dbmap.Insert(u)
+	var affectCount int64
+	if u.ID > 0 {
+		affectCount, err = dbmap.Update(u)
+	} else {
+		err = dbmap.Insert(u)
+		affectCount = 1
+	}
+
 	if err != nil {
 		return err
+	}
+
+	if affectCount == 0 {
+		return errors.New("failed to save user, affectCount = 0")
 	}
 
 	id := u.ID
@@ -99,20 +109,6 @@ func (u *User) Save(dbmap *gorp.DbMap) (err error) {
 	err = userRole.Save(dbmap)
 	if err != nil {
 		return err
-	}
-
-	return
-}
-
-// Update user info
-func (u *User) Update(dbmap *gorp.DbMap) (err error) {
-	count, err := dbmap.Update(u)
-	if err != nil {
-		return err
-	}
-
-	if count == 0 {
-		return errors.New("save user failed")
 	}
 
 	return

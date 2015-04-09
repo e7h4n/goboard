@@ -38,6 +38,7 @@ func QueryRoleByScope(scope RoleScope, dbmap *gorp.DbMap) (roles []Role, err err
 	return
 }
 
+// Save will insert a role record to database.
 func (r *Role) Save(dbmap *gorp.DbMap) (err error) {
 	return dbmap.Insert(r)
 }

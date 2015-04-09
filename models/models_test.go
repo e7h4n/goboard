@@ -21,13 +21,13 @@ func initTestDb(droptable bool) *gorp.DbMap {
 	if droptable {
 		err = dbmap.DropTablesIfExists()
 		checkTestErr(err)
+
+		err = dbmap.CreateTables()
+		checkTestErr(err)
+
+		err = InitPrivilegeData(dbmap)
+		checkTestErr(err)
 	}
-
-	err = dbmap.CreateTablesIfNotExists()
-	checkTestErr(err)
-
-	role := &Role{Name: "Admin", Scope: RoleGlobal}
-	checkTestErr(role.Save(dbmap))
 
 	return dbmap
 }

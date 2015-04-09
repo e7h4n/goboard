@@ -2,6 +2,7 @@ package models
 
 import "gopkg.in/gorp.v1"
 
+// UserRole saves the role of user in a specified project.
 type UserRole struct {
 	ID        int `db:"id"`
 	UserID    int `db:"user_id"`
@@ -14,6 +15,7 @@ func initUserRoleTable(dbmap *gorp.DbMap) {
 	userRoleTable.SetKeys(true, "id")
 }
 
+// Save will insert a user-role-project relationship record to database.
 func (ur *UserRole) Save(dbmap *gorp.DbMap) (err error) {
 	return dbmap.Insert(ur)
 }

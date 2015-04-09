@@ -11,7 +11,10 @@ const (
 	Test string = "test"
 )
 
+// Env is server runtime environment
 var Env = Dev
+
+// Root is current woring directory
 var Root string
 
 func setENV(e string) {

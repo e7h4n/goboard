@@ -18,6 +18,7 @@ func TestGetUserByID(t *testing.T) {
 	dbmap := initTestDb(false)
 
 	user := GetUserByID(1, dbmap)
+
 	assert.NotNil(t, user)
 	assert.Equal(t, 1, user.ID)
 }
@@ -48,8 +49,9 @@ func TestUpdateUser(t *testing.T) {
 	dbmap := initTestDb(false)
 
 	user := GetUserByID(1, dbmap)
+
 	user.Email = "xuhf@fenbi.com"
-	err := user.Update(dbmap)
+	err := user.Save(dbmap)
 	checkTestErr(err)
 
 	user = GetUserByID(1, dbmap)
