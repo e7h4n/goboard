@@ -1,4 +1,4 @@
-package models
+package storage
 
 import (
 	"gopkg.in/gorp.v1"
@@ -15,6 +15,7 @@ func InitDbMap(dbmap *gorp.DbMap) {
 	initDataSourceTable(dbmap)
 	initFolderTable(dbmap)
 	initWidgetTable(dbmap)
+	initRecordTable(dbmap)
 }
 
 // InitPrivilegeData will initialize privilege data to database

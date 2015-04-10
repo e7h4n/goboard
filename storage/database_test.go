@@ -1,10 +1,11 @@
-package models
+package storage
 
 import (
 	"database/sql"
-	"log"
-	"os"
+	_ "log"
+	_ "os"
 
+	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/mattn/go-sqlite3"
 	"gopkg.in/gorp.v1"
 )
@@ -14,7 +15,7 @@ func initTestDb(droptable bool) *gorp.DbMap {
 	checkTestErr(err)
 
 	dbmap := &gorp.DbMap{Db: db, Dialect: gorp.SqliteDialect{}}
-	dbmap.TraceOn("[gorp]", log.New(os.Stdout, "myapp:", log.Lmicroseconds))
+	//dbmap.TraceOn("[gorp]", log.New(os.Stdout, "myapp:", log.Lmicroseconds))
 
 	InitDbMap(dbmap)
 
