@@ -24,4 +24,12 @@ func TestDashboardModel(t *testing.T) {
 	assert.Equal(t, w.UpdatedAt, dashboard.UpdatedAt)
 	assert.Equal(t, w.Private, dashboard.Private)
 	assert.Equal(t, `{"layout":[{"id":1,"firstGrid":[1,2],"lastGrid":[3,4]},{"id":2,"firstGrid":[3,4],"lastGrid":[5,6]}]}`, dashboard.Config)
+
+	w, err = NewDashboard(dashboard)
+	checkTestErr(err)
+	assert.Equal(t, w.ID, dashboard.ID)
+	assert.Equal(t, w.ProjectID, dashboard.ProjectID)
+	assert.Equal(t, w.CreatedAt, dashboard.CreatedAt)
+	assert.Equal(t, w.UpdatedAt, dashboard.UpdatedAt)
+	assert.Equal(t, w.Private, dashboard.Private)
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/yuantiku/goboard/storage"
 )
 
+// Record is view object for storage.Record
 type Record struct {
 	ID           int64     `json:"id"`
 	CreatedAt    time.Time `json:"createdAt"`
@@ -21,8 +22,9 @@ type Record struct {
 	DateTime     time.Time `json:"dateTime"`
 }
 
-func (p *Record) Model() (record *storage.Record, err error) {
-	record = &storage.Record{
+// Model convert vo to storage model
+func (p *Record) Model() (record *storage.Record) {
+	return &storage.Record{
 		ID:           p.ID,
 		CreatedAt:    p.CreatedAt,
 		UpdatedAt:    p.UpdatedAt,
@@ -35,6 +37,20 @@ func (p *Record) Model() (record *storage.Record, err error) {
 		Minute:       p.Minute,
 		Second:       p.Second,
 		DateTime:     p.DateTime}
+}
 
-	return
+func NewRecord(r *storage.Record) (record *Record) {
+	return &Record{
+		ID:           r.ID,
+		CreatedAt:    r.CreatedAt,
+		UpdatedAt:    r.UpdatedAt,
+		DataSourceID: r.DataSourceID,
+		Value:        r.Value,
+		Year:         r.Year,
+		Month:        r.Month,
+		Day:          r.Day,
+		Hour:         r.Hour,
+		Minute:       r.Minute,
+		Second:       r.Second,
+		DateTime:     r.DateTime}
 }

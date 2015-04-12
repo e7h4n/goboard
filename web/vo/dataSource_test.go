@@ -36,4 +36,15 @@ func TestDataSourceModel(t *testing.T) {
 	assert.Equal(t, w.FolderID, dataSource.FolderID)
 	assert.Equal(t, w.Increment, dataSource.Increment)
 	assert.Equal(t, `{"dimensions":[{"key":"Key","name":"Name","type":"Type"},{"key":"Key","name":"Name","type":"Type"}]}`, dataSource.Config)
+
+	w, err = NewDataSource(dataSource)
+	checkTestErr(err)
+	assert.Equal(t, w.ID, dataSource.ID)
+	assert.Equal(t, w.Name, dataSource.Name)
+	assert.Equal(t, w.CreatedAt, dataSource.CreatedAt)
+	assert.Equal(t, w.UpdatedAt, dataSource.UpdatedAt)
+	assert.Equal(t, w.ProjectID, dataSource.ProjectID)
+	assert.Equal(t, w.Key, dataSource.Key)
+	assert.Equal(t, w.FolderID, dataSource.FolderID)
+	assert.Equal(t, w.Increment, dataSource.Increment)
 }

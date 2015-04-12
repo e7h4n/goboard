@@ -30,3 +30,19 @@ func TestWidgetModel(t *testing.T) {
 	assert.Equal(t, w.DashboardID, widget.DashboardID)
 	assert.Equal(t, `{"name":"Foo","limit":1,"dataInfos":[{"id":1,"dimensions":[{"key":"keyA","name":"NameA","value":"ValueA"},{"key":"keyB","name":"NameB","value":"ValueB"}]},{"id":2,"dimensions":null}]}`, widget.Config)
 }
+
+func TestNewWidget(t *testing.T) {
+	widget := &storage.Widget{
+		ID:          1,
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
+		DashboardID: 1,
+		Type:        storage.WidgetSpline,
+		Config:      `{"name":"Foo","limit":1,"dataInfos":[{"id":1,"dimensions":[{"key":"keyA","name":"NameA","value":"ValueA"},{"key":"keyB","name":"NameB","value":"ValueB"}]},{"id":2,"dimensions":null}]}`}
+
+	vo, err := NewWidget(widget)
+	checkTestErr(err)
+	assert.NotNil(t, vo)
+	assert.Equal(t, "Foo", vo.Config.Name)
+	assert.Len(t, vo.Config.DataInfos, 2)
+}

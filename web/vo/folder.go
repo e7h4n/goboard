@@ -6,6 +6,7 @@ import (
 	"github.com/yuantiku/goboard/storage"
 )
 
+// Folder is view object for storage.Folder
 type Folder struct {
 	ID        int       `json:"id"`
 	CreatedAt time.Time `json:"createdAt"`
@@ -15,14 +16,23 @@ type Folder struct {
 	ProjectID int       `json:"projectId"`
 }
 
-func (f *Folder) Model() (folder *storage.Folder, err error) {
-	folder = &storage.Folder{
+// Model convert vo to storage model
+func (f *Folder) Model() (folder *storage.Folder) {
+	return &storage.Folder{
 		ID:        f.ID,
 		CreatedAt: f.CreatedAt,
 		UpdatedAt: f.UpdatedAt,
 		Name:      f.Name,
 		ParentID:  f.ParentID,
 		ProjectID: f.ProjectID}
+}
 
-	return
+func NewFolder(f *storage.Folder) (folder *Folder) {
+	return &Folder{
+		ID:        f.ID,
+		CreatedAt: f.CreatedAt,
+		UpdatedAt: f.UpdatedAt,
+		Name:      f.Name,
+		ParentID:  f.ParentID,
+		ProjectID: f.ProjectID}
 }

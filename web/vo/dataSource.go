@@ -7,6 +7,7 @@ import (
 	"github.com/yuantiku/goboard/storage"
 )
 
+// DataSource is view object for storage.DataSource
 type DataSource struct {
 	ID        int              `json:"id"`
 	CreatedAt time.Time        `json:"createdAt"`
@@ -19,16 +20,19 @@ type DataSource struct {
 	Increment bool             `json:"increment"`
 }
 
+// DataSourceConfig is data source config
 type DataSourceConfig struct {
 	Dimensions []DimensionConfig `json:"dimensions"`
 }
 
+// DimensionConfig is dimension config for data source
 type DimensionConfig struct {
 	Key  string `json:"key"`
 	Name string `json:"name"`
 	Type string `json:"type"`
 }
 
+// Model convert vo to storage model
 func (ds *DataSource) Model() (dataSource *storage.DataSource, err error) {
 	dataSource = &storage.DataSource{
 		ID:        ds.ID,
@@ -46,5 +50,21 @@ func (ds *DataSource) Model() (dataSource *storage.DataSource, err error) {
 	}
 
 	dataSource.Config = string(config)
+	return
+}
+
+func NewDataSource(ds *storage.DataSource) (dataSource *DataSource, err error) {
+	dataSource = &DataSource{
+		ID:        ds.ID,
+		Name:      ds.Name,
+		CreatedAt: ds.CreatedAt,
+		UpdatedAt: ds.UpdatedAt,
+		ProjectID: ds.ProjectID,
+		Key:       ds.Key,
+		FolderID:  ds.FolderID,
+		Increment: ds.Increment}
+
+	err = json.Unmarshal([]byte(ds.Config), &dataSource.Config)
+
 	return
 }

@@ -8,19 +8,25 @@ import (
 )
 
 func TestProjectModel(t *testing.T) {
-	f := &Project{
+	p := &Project{
 		ID:        1,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 		Name:      "Name",
 		UUID:      "AAA"}
-	project, err := f.Model()
-	checkTestErr(err)
+	project := p.Model()
 
 	assert.NotNil(t, project)
-	assert.Equal(t, f.ID, project.ID)
-	assert.Equal(t, f.Name, project.Name)
-	assert.Equal(t, f.CreatedAt, project.CreatedAt)
-	assert.Equal(t, f.UpdatedAt, project.UpdatedAt)
-	assert.Equal(t, f.UUID, project.UUID)
+	assert.Equal(t, p.ID, project.ID)
+	assert.Equal(t, p.Name, project.Name)
+	assert.Equal(t, p.CreatedAt, project.CreatedAt)
+	assert.Equal(t, p.UpdatedAt, project.UpdatedAt)
+	assert.Equal(t, p.UUID, project.UUID)
+
+	p = NewProject(project)
+	assert.Equal(t, p.ID, project.ID)
+	assert.Equal(t, p.Name, project.Name)
+	assert.Equal(t, p.CreatedAt, project.CreatedAt)
+	assert.Equal(t, p.UpdatedAt, project.UpdatedAt)
+	assert.Equal(t, p.UUID, project.UUID)
 }

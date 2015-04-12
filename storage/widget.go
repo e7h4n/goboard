@@ -22,8 +22,8 @@ type Widget struct {
 	CreatedAt   time.Time `db:"created_at"`
 	UpdatedAt   time.Time `db:"updated_at"`
 	DashboardID int       `db:"dashboard_id"`
-	Config      string    `db:"config"`
 	Type        int       `db:"type"`
+	Config      string    `db:"config"`
 }
 
 func initWidgetTable(dbmap *gorp.DbMap) {
