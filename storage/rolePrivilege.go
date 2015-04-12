@@ -42,3 +42,15 @@ func QueryRolePrivilegesByRoleID(roleID int, dbmap *gorp.DbMap) (rolePrivileges 
 func (rp *RolePrivilege) Save(dbmap *gorp.DbMap) (err error) {
 	return dbmap.Insert(rp)
 }
+
+// AuthProject check user privilege to project
+func AuthProject(userID int, resource string, operation string, projectID int, dbmap *gorp.DbMap) (authorized bool, err error) {
+	count, err := dbmap.SelectInt("select count(*) as count from user_roles ur"+
+		" join roles r on r.id = ur.role_id"+
+		" join role_privileges rp on rp.role_id = r.id"+
+		" where ur.user_id = ? and (ur.project_id = ? or r.scope = ?) and rp.resource = ? and rp.operation = ?", userID, projectID, RoleGlobal, resource, operation)
+
+	authorized = count > 0
+
+	return
+}

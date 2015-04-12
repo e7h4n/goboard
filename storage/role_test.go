@@ -7,7 +7,7 @@ import (
 )
 
 func TestGetAllRole(t *testing.T) {
-	dbmap := initTestDb(true)
+	dbmap := InitTestDB(true)
 
 	roles, err := GetAllRole(dbmap)
 	checkTestErr(err)

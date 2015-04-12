@@ -32,11 +32,8 @@ func initWidgetTable(dbmap *gorp.DbMap) {
 }
 
 // GetWidget will retrieve widget by widget id
-func GetWidget(widgetID int, dbmap *gorp.DbMap) (widget *Widget) {
-	err := dbmap.SelectOne(&widget, "select * from widgets where id = ?", widgetID)
-	if err != nil {
-		return nil
-	}
+func GetWidget(widgetID int, dbmap *gorp.DbMap) (widget *Widget, err error) {
+	err = dbmap.SelectOne(&widget, "select * from widgets where id = ?", widgetID)
 
 	return
 }

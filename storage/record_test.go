@@ -8,7 +8,7 @@ import (
 )
 
 func TestSaveQuery(t *testing.T) {
-	dbmap := initTestDb(true)
+	dbmap := InitTestDB(true)
 
 	project := &Project{Name: "Demo Project"}
 	checkTestErr(project.Save(dbmap))
@@ -35,7 +35,7 @@ func TestSaveQuery(t *testing.T) {
 }
 
 func TestQueryRecord(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 	localLoc, err := time.LoadLocation("Local")
 	checkTestErr(err)
 
@@ -71,7 +71,7 @@ func TestQueryRecord(t *testing.T) {
 }
 
 func TestGetRecord(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	record, err := GetRecord(1, dbmap)
 	checkTestErr(err)
@@ -80,7 +80,7 @@ func TestGetRecord(t *testing.T) {
 }
 
 func TestRemoveRecord(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	record, err := GetRecord(1, dbmap)
 	checkTestErr(err)

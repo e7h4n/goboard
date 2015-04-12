@@ -39,6 +39,7 @@ func (p *Record) Model() (record *storage.Record) {
 		DateTime:     p.DateTime}
 }
 
+// NewRecord convert storage model to vo
 func NewRecord(r *storage.Record) (record *Record) {
 	return &Record{
 		ID:           r.ID,

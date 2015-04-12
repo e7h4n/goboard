@@ -7,7 +7,7 @@ import (
 )
 
 func TestUpdateDashboard(t *testing.T) {
-	dbmap := initTestDb(true)
+	dbmap := InitTestDB(true)
 
 	user := &User{Email: "foo@fenbi.com"}
 	err := user.Save(dbmap)
@@ -21,7 +21,8 @@ func TestUpdateDashboard(t *testing.T) {
 
 	assert.Equal(t, 1, dashboard.ID)
 
-	dashboard = GetDashboardByID(1, dbmap)
+	dashboard, err = GetDashboard(1, dbmap)
+	checkTestErr(err)
 
 	assert.Equal(t, "FooBoard", dashboard.Name)
 	assert.True(t, dashboard.CreatedAt.Unix() > 0)
@@ -31,13 +32,14 @@ func TestUpdateDashboard(t *testing.T) {
 	dashboard.Name = "BarBoard"
 	checkTestErr(dashboard.Save(dbmap))
 
-	dashboard = GetDashboardByID(1, dbmap)
+	dashboard, err = GetDashboard(1, dbmap)
+	checkTestErr(err)
 
 	assert.True(t, dashboard.UpdatedAt.After(updatedAt))
 }
 
 func TestQueryDashboardByUser(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	users, err := GetAllUser(dbmap)
 	checkTestErr(err)
@@ -72,7 +74,7 @@ func TestQueryDashboardByUser(t *testing.T) {
 }
 
 func TestRemoveDashboard(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	dashboards, err := QueryDashboardByUser(1, 2, dbmap)
 	checkTestErr(err)

@@ -7,7 +7,7 @@ import (
 )
 
 func TestSaveProject(t *testing.T) {
-	dbmap := initTestDb(true)
+	dbmap := InitTestDB(true)
 
 	project := &Project{Name: "Demo Project"}
 	err := project.Save(dbmap)
@@ -26,7 +26,7 @@ func TestSaveProject(t *testing.T) {
 }
 
 func TestDeleteProject(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	projects, err := GetAllProject(dbmap)
 	checkTestErr(err)

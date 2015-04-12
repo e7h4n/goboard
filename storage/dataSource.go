@@ -34,12 +34,9 @@ func QueryDataSource(projectID int, folderID int, dbmap *gorp.DbMap) (dataSource
 	return
 }
 
-// GetDataSourceByID retrieve specified DataSource by id
-func GetDataSourceByID(dataSourceID int, dbmap *gorp.DbMap) (dataSource *DataSource) {
-	err := dbmap.SelectOne(&dataSource, "select * from data_sources where id = ?", dataSourceID)
-	if err != nil {
-		return nil
-	}
+// GetDataSource retrieve specified DataSource by id
+func GetDataSource(dataSourceID int, dbmap *gorp.DbMap) (dataSource *DataSource, err error) {
+	err = dbmap.SelectOne(&dataSource, "select * from data_sources where id = ?", dataSourceID)
 
 	return
 }

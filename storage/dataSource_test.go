@@ -7,7 +7,7 @@ import (
 )
 
 func TestSaveDataSource(t *testing.T) {
-	dbmap := initTestDb(true)
+	dbmap := InitTestDB(true)
 
 	project := &Project{Name: "Demo Project"}
 	checkTestErr(project.Save(dbmap))
@@ -22,7 +22,7 @@ func TestSaveDataSource(t *testing.T) {
 }
 
 func TestQueryDataSource(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	dataSources, err := QueryDataSource(1, FolderRoot, dbmap)
 	checkTestErr(err)
@@ -31,21 +31,22 @@ func TestQueryDataSource(t *testing.T) {
 }
 
 func TestGetDataSourceByID(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
-	dataSource := GetDataSourceByID(1, dbmap)
+	dataSource, err := GetDataSource(1, dbmap)
+	checkTestErr(err)
 
 	assert.NotNil(t, dataSource)
 }
 
 func TestRemoveDataSource(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
-	dataSource := GetDataSourceByID(1, dbmap)
+	dataSource, err := GetDataSource(1, dbmap)
+	checkTestErr(err)
 
 	checkTestErr(dataSource.Remove(dbmap))
 
-	dataSource = GetDataSourceByID(1, dbmap)
-
-	assert.Nil(t, dataSource)
+	dataSource, err = GetDataSource(1, dbmap)
+	assert.NotNil(t, err)
 }

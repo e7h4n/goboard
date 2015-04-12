@@ -7,7 +7,7 @@ import (
 )
 
 func TestSaveFolder(t *testing.T) {
-	dbmap := initTestDb(true)
+	dbmap := InitTestDB(true)
 
 	project := &Project{Name: "Proj"}
 	checkTestErr(project.Save(dbmap))
@@ -29,7 +29,7 @@ func TestSaveFolder(t *testing.T) {
 }
 
 func TestQueryFolder(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	rootFolders, err := QueryFolder(1, FolderRoot, dbmap)
 	checkTestErr(err)

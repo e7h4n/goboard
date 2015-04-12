@@ -24,12 +24,9 @@ func initDashboardTable(dbmap *gorp.DbMap) {
 	dashboardTable.SetKeys(true, "id")
 }
 
-// GetDashboardByID will retrieve specified dashboard by id.
-func GetDashboardByID(dashboardID int, dbmap *gorp.DbMap) (dashboard *Dashboard) {
-	err := dbmap.SelectOne(&dashboard, "select * from dashboards where id = ?", dashboardID)
-	if err != nil {
-		return nil
-	}
+// GetDashboard will retrieve specified dashboard by id.
+func GetDashboard(dashboardID int, dbmap *gorp.DbMap) (dashboard *Dashboard, err error) {
+	err = dbmap.SelectOne(&dashboard, "select * from dashboards where id = ?", dashboardID)
 
 	return
 }

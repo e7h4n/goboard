@@ -27,6 +27,7 @@ func (f *Folder) Model() (folder *storage.Folder) {
 		ProjectID: f.ProjectID}
 }
 
+// NewFolder convert storage model to vo
 func NewFolder(f *storage.Folder) (folder *Folder) {
 	return &Folder{
 		ID:        f.ID,

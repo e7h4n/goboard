@@ -17,7 +17,7 @@ func (u *User) Model() (user *storage.User) {
 		Salt:  u.Salt}
 }
 
-// NewWidget convert storage model to vo
+// NewUser convert storage model to vo
 func NewUser(u *storage.User) (user *User) {
 	return &User{
 		ID:    u.ID,

@@ -28,13 +28,9 @@ func initFolderTable(dbmap *gorp.DbMap) {
 	folderTable.ColMap("name").SetUnique(true)
 }
 
-// GetFolderByID will retrieve folder which specified by id
-func GetFolderByID(folderID int, dbmap *gorp.DbMap) (folder *Folder) {
-	err := dbmap.SelectOne(&folder, "select * from folder where id = ?", folderID)
-	if err != nil {
-		return nil
-	}
-
+// GetFolder will retrieve folder which specified by id
+func GetFolder(folderID int, dbmap *gorp.DbMap) (folder *Folder, err error) {
+	err = dbmap.SelectOne(&folder, "select * from folders where id = ?", folderID)
 	return
 }
 

@@ -25,6 +25,7 @@ func (p *Project) Model() (project *storage.Project) {
 		Name:      p.Name}
 }
 
+// NewProject convert storage model to vo
 func NewProject(p *storage.Project) (project *Project) {
 	return &Project{
 		ID:        p.ID,

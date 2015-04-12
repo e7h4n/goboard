@@ -6,7 +6,7 @@ import (
 )
 
 func TestSaveUser(t *testing.T) {
-	dbmap := initTestDb(true)
+	dbmap := InitTestDB(true)
 	user := &User{Email: "zhangyc@fenbi.com", Salt: "AAABBB"}
 	err := user.Save(dbmap)
 	checkTestErr(err)
@@ -15,7 +15,7 @@ func TestSaveUser(t *testing.T) {
 }
 
 func TestGetUserByID(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	user := GetUserByID(1, dbmap)
 
@@ -24,7 +24,7 @@ func TestGetUserByID(t *testing.T) {
 }
 
 func TestGetAllUser(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	users, err := GetAllUser(dbmap)
 	assert.Nil(t, err)
@@ -32,7 +32,7 @@ func TestGetAllUser(t *testing.T) {
 }
 
 func TestQueryUserByEmail(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	user := &User{Email: "gcz@fenbi.com", Salt: "AAABBBDD"}
 	err := user.Save(dbmap)
@@ -46,7 +46,7 @@ func TestQueryUserByEmail(t *testing.T) {
 }
 
 func TestUpdateUser(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	user := GetUserByID(1, dbmap)
 
@@ -60,7 +60,7 @@ func TestUpdateUser(t *testing.T) {
 }
 
 func TestInitUser(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	user, err := InitUser("shenly@fenbi.com", dbmap)
 	assert.Nil(t, err)

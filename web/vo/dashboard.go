@@ -45,6 +45,7 @@ func (d *Dashboard) Model() (dashboard *storage.Dashboard, err error) {
 	return
 }
 
+// NewDashboard convert storage model to vo
 func NewDashboard(d *storage.Dashboard) (dashboard *Dashboard, err error) {
 	dashboard = &Dashboard{
 		ID:        d.ID,

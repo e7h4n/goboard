@@ -53,6 +53,7 @@ func (ds *DataSource) Model() (dataSource *storage.DataSource, err error) {
 	return
 }
 
+// NewDataSource convert storage model to vo
 func NewDataSource(ds *storage.DataSource) (dataSource *DataSource, err error) {
 	dataSource = &DataSource{
 		ID:        ds.ID,

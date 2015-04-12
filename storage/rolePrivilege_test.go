@@ -7,7 +7,7 @@ import (
 )
 
 func TestQueryRolePrivilegesByRoleID(t *testing.T) {
-	dbmap := initTestDb(true)
+	dbmap := InitTestDB(true)
 
 	user := &User{Email: "zhangyc@fenbi.com"}
 	err := user.Save(dbmap)

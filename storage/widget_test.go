@@ -7,7 +7,7 @@ import (
 )
 
 func TestSaveWidget(t *testing.T) {
-	dbmap := initTestDb(true)
+	dbmap := InitTestDB(true)
 
 	user := &User{Email: "foo@fenbi.com"}
 	err := user.Save(dbmap)
@@ -24,7 +24,7 @@ func TestSaveWidget(t *testing.T) {
 }
 
 func TestQueryWidget(t *testing.T) {
-	dbmap := initTestDb(false)
+	dbmap := InitTestDB(false)
 
 	widgets, err := QueryWidget(1, dbmap)
 	checkTestErr(err)

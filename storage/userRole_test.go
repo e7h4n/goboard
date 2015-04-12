@@ -7,7 +7,7 @@ import (
 )
 
 func TestSaveRole(t *testing.T) {
-	dbmap := initTestDb(true)
+	dbmap := InitTestDB(true)
 
 	role := &Role{Name: "test", Scope: RoleGlobal}
 	err := role.Save(dbmap)
