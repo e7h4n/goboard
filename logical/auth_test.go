@@ -34,19 +34,21 @@ func TestAuthProject(t *testing.T) {
 	userRole := &storage.UserRole{UserID: userNorm.ID, ProjectID: projectFoo.ID, RoleID: roleID}
 	checkTestErr(userRole.Save(ctx.DbMap))
 
-	authorized, err := AuthProject(userAdmin.ID, projectFoo.ID, ctx)
+	ctx.UserID = userAdmin.ID
+	authorized, err := AuthProject(projectFoo.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthProject(userAdmin.ID, projectBar.ID, ctx)
+	authorized, err = AuthProject(projectBar.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthProject(userNorm.ID, projectFoo.ID, ctx)
+	ctx.UserID = userNorm.ID
+	authorized, err = AuthProject(projectFoo.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthProject(userNorm.ID, projectBar.ID, ctx)
+	authorized, err = AuthProject(projectBar.ID, ctx)
 	checkTestErr(err)
 	assert.False(t, authorized)
 }
@@ -60,19 +62,21 @@ func TestAuthDataSource(t *testing.T) {
 	dataSourceBar := &storage.DataSource{Name: "bar", ProjectID: projectBar.ID, Key: "bar"}
 	checkTestErr(dataSourceBar.Save(ctx.DbMap))
 
-	authorized, err := AuthDataSource(userAdmin.ID, dataSourceFoo.ID, ctx)
+	ctx.UserID = userAdmin.ID
+	authorized, err := AuthDataSource(dataSourceFoo.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthDataSource(userAdmin.ID, dataSourceBar.ID, ctx)
+	authorized, err = AuthDataSource(dataSourceBar.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthDataSource(userNorm.ID, dataSourceFoo.ID, ctx)
+	ctx.UserID = userNorm.ID
+	authorized, err = AuthDataSource(dataSourceFoo.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthDataSource(userNorm.ID, dataSourceBar.ID, ctx)
+	authorized, err = AuthDataSource(dataSourceBar.ID, ctx)
 	checkTestErr(err)
 	assert.False(t, authorized)
 }
@@ -86,19 +90,21 @@ func TestAuthFolder(t *testing.T) {
 	folderBar := &storage.Folder{Name: "bar", ProjectID: projectBar.ID}
 	checkTestErr(folderBar.Save(ctx.DbMap))
 
-	authorized, err := AuthFolder(userAdmin.ID, folderFoo.ID, ctx)
+	ctx.UserID = userAdmin.ID
+	authorized, err := AuthFolder(folderFoo.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthFolder(userAdmin.ID, folderBar.ID, ctx)
+	authorized, err = AuthFolder(folderBar.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthFolder(userNorm.ID, folderFoo.ID, ctx)
+	ctx.UserID = userNorm.ID
+	authorized, err = AuthFolder(folderFoo.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthFolder(userNorm.ID, folderBar.ID, ctx)
+	authorized, err = AuthFolder(folderBar.ID, ctx)
 	checkTestErr(err)
 	assert.False(t, authorized)
 }
@@ -112,19 +118,21 @@ func TestAuthDashboard(t *testing.T) {
 	dashboardBar := &storage.Dashboard{Name: "bar", ProjectID: projectBar.ID}
 	checkTestErr(dashboardBar.Save(ctx.DbMap))
 
-	authorized, err := AuthDashboard(userAdmin.ID, dashboardFoo.ID, ctx)
+	ctx.UserID = userAdmin.ID
+	authorized, err := AuthDashboard(dashboardFoo.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthDashboard(userAdmin.ID, dashboardBar.ID, ctx)
+	authorized, err = AuthDashboard(dashboardBar.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthDashboard(userNorm.ID, dashboardFoo.ID, ctx)
+	ctx.UserID = userNorm.ID
+	authorized, err = AuthDashboard(dashboardFoo.ID, ctx)
 	checkTestErr(err)
 	assert.True(t, authorized)
 
-	authorized, err = AuthDashboard(userNorm.ID, dashboardBar.ID, ctx)
+	authorized, err = AuthDashboard(dashboardBar.ID, ctx)
 	checkTestErr(err)
 	assert.False(t, authorized)
 }

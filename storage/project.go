@@ -27,19 +27,23 @@ func initProjectTable(dbmap *gorp.DbMap) {
 	projectTable.ColMap("name").SetUnique(true)
 }
 
-// GetAllProject will retrieve all projects
-func GetAllProject(dbmap *gorp.DbMap) (projects []Project, err error) {
-	_, err = dbmap.Select(&projects, "select * from projects")
+// QueryProject will retrieve all user projects
+func QueryProject(userID int, dbmap *gorp.DbMap) (projects []Project, err error) {
+	_, err = dbmap.Select(&projects, "select p.* from projects p"+
+		" left join user_roles ur on (ur.project_id = p.id or ur.project_id = 0)"+
+		" join roles r on r.id = ur.role_id"+
+		" join role_privileges rp on rp.role_id = r.id"+
+		" where ur.user_id = ? and (ur.project_id is p.id or r.scope = ?) and rp.resource = ? and rp.operation = ?", userID, RoleGlobal, ResourceProject, OperationGet)
 	return
 }
 
-// GetProjectByID will retrieve specified project by id
-func GetProjectByID(projectID int, dbmap *gorp.DbMap) (project *Project) {
-	err := dbmap.SelectOne(&project, "select * from projects where id = ?", projectID)
-	if err != nil {
-		return nil
-	}
-
+// GetProject will retrieve specified project by id and user
+func GetProject(projectID int, userID int, dbmap *gorp.DbMap) (project *Project, err error) {
+	err = dbmap.SelectOne(&project, "select p.* from projects p"+
+		" left join user_roles ur on (ur.project_id = p.id or ur.project_id = 0)"+
+		" join roles r on r.id = ur.role_id"+
+		" join role_privileges rp on rp.role_id = r.id"+
+		" where p.id = ? and ur.user_id = ? and (ur.project_id = ? or r.scope = ?) and rp.resource = ? and rp.operation = ?", projectID, userID, projectID, RoleGlobal, ResourceProject, OperationGet)
 	return
 }
 

@@ -2,6 +2,8 @@ package logical
 
 import (
 	"database/sql"
+	"log"
+	"os"
 
 	"github.com/yuantiku/goboard/storage"
 
@@ -31,6 +33,10 @@ func initTest(droptable bool) *Context {
 	ctx := &Context{DbMap: dbmap}
 
 	return ctx
+}
+
+func enableTrace(ctx *Context) {
+	ctx.DbMap.TraceOn("[gorp]", log.New(os.Stdout, "myapp:", log.Lmicroseconds))
 }
 
 func checkTestErr(err error) {

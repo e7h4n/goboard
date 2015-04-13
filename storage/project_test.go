@@ -9,6 +9,12 @@ import (
 func TestSaveProject(t *testing.T) {
 	dbmap := InitTestDB(true)
 
+	admin := &User{Email: "zhangyc@fenbi.com"}
+	checkTestErr(admin.Save(dbmap))
+
+	user := &User{Email: "user@fenbi.com"}
+	checkTestErr(user.Save(dbmap))
+
 	project := &Project{Name: "Demo Project"}
 	err := project.Save(dbmap)
 	checkTestErr(err)
@@ -21,14 +27,20 @@ func TestSaveProject(t *testing.T) {
 	err = project.Save(dbmap)
 	checkTestErr(err)
 
-	project = GetProjectByID(projectID, dbmap)
+	project, err = GetProject(projectID, 1, dbmap)
+	checkTestErr(err)
+
+	projects, err := QueryProject(2, dbmap)
+	checkTestErr(err)
+	assert.Len(t, projects, 0)
+
 	assert.Equal(t, "Foo", project.Name)
 }
 
 func TestDeleteProject(t *testing.T) {
 	dbmap := InitTestDB(false)
 
-	projects, err := GetAllProject(dbmap)
+	projects, err := QueryProject(1, dbmap)
 	checkTestErr(err)
 
 	assert.Len(t, projects, 1)
@@ -36,7 +48,7 @@ func TestDeleteProject(t *testing.T) {
 	err = projects[0].Remove(dbmap)
 	checkTestErr(err)
 
-	projects, err = GetAllProject(dbmap)
+	projects, err = QueryProject(1, dbmap)
 	checkTestErr(err)
 
 	assert.Len(t, projects, 0)

@@ -25,19 +25,19 @@ func initDashboardTable(dbmap *gorp.DbMap) {
 }
 
 // GetDashboard will retrieve specified dashboard by id.
-func GetDashboard(dashboardID int, dbmap *gorp.DbMap) (dashboard *Dashboard, err error) {
-	err = dbmap.SelectOne(&dashboard, "select * from dashboards where id = ?", dashboardID)
+func GetDashboard(dashboardID int, userID int, dbmap *gorp.DbMap) (dashboard *Dashboard, err error) {
+	err = dbmap.SelectOne(&dashboard, "select * from dashboards where id = ? and (owner_id = ? or private = ?)", dashboardID, userID, false)
 
 	return
 }
 
 /*
-QueryDashboardByUser will retrieve such dashboards:
+QueryDashboard will retrieve such dashboards:
 
   1. all public boards which belongs to specified project
   2. all private boards which belongs to specified project and specified user
 */
-func QueryDashboardByUser(projectID int, ownerID int, dbmap *gorp.DbMap) (dashboards []Dashboard, err error) {
+func QueryDashboard(projectID int, ownerID int, dbmap *gorp.DbMap) (dashboards []Dashboard, err error) {
 	_, err = dbmap.Select(&dashboards, "select * from dashboards"+
 		" where project_id = ?"+
 		" and (owner_id = ? or private = ?)", projectID, ownerID, false)

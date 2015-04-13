@@ -10,6 +10,7 @@ import (
 // Dashboard is view object for storage.Dashboard
 type Dashboard struct {
 	ID        int             `json:"id"`
+	OwnerID   int             `json:"ownerId"`
 	CreatedAt time.Time       `json:"createdAt"`
 	UpdatedAt time.Time       `json:"updatedAt"`
 	Name      string          `json:"name"`
@@ -35,7 +36,15 @@ type LayoutGrid [2]int
 
 // Model convert vo to storage model
 func (d *Dashboard) Model() (dashboard *storage.Dashboard, err error) {
-	dashboard = &storage.Dashboard{ID: d.ID, Name: d.Name, Private: d.Private, CreatedAt: d.CreatedAt, UpdatedAt: d.UpdatedAt, ProjectID: d.ProjectID}
+	dashboard = &storage.Dashboard{
+		ID:        d.ID,
+		OwnerID:   d.OwnerID,
+		Name:      d.Name,
+		Private:   d.Private,
+		CreatedAt: d.CreatedAt,
+		UpdatedAt: d.UpdatedAt,
+		ProjectID: d.ProjectID}
+
 	config, err := json.Marshal(d.Config)
 	if err != nil {
 		return
@@ -49,6 +58,7 @@ func (d *Dashboard) Model() (dashboard *storage.Dashboard, err error) {
 func NewDashboard(d *storage.Dashboard) (dashboard *Dashboard, err error) {
 	dashboard = &Dashboard{
 		ID:        d.ID,
+		OwnerID:   d.OwnerID,
 		Name:      d.Name,
 		Private:   d.Private,
 		CreatedAt: d.CreatedAt,
