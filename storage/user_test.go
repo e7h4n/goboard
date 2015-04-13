@@ -17,7 +17,8 @@ func TestSaveUser(t *testing.T) {
 func TestGetUserByID(t *testing.T) {
 	dbmap := InitTestDB(false)
 
-	user := GetUserByID(1, dbmap)
+	user, err := GetUserByID(1, dbmap)
+	checkTestErr(err)
 
 	assert.NotNil(t, user)
 	assert.Equal(t, 1, user.ID)
@@ -39,22 +40,36 @@ func TestQueryUserByEmail(t *testing.T) {
 	checkTestErr(err)
 	assert.Equal(t, 2, user.ID)
 
-	users, err := QueryUserByEmail("zhangyc", dbmap)
+	users, err := QueryUser("zhangyc", dbmap)
 	assert.Nil(t, err)
 	assert.Equal(t, 1, len(users))
 	assert.Equal(t, "zhangyc@fenbi.com", users[0].Email)
 }
 
+func TestGetUserBySalt(t *testing.T) {
+	dbmap := InitTestDB(false)
+
+	user, err := GetUserByID(1, dbmap)
+	checkTestErr(err)
+	salt := user.Salt
+
+	user, err = GetUserBySalt(salt, dbmap)
+	checkTestErr(err)
+	assert.Equal(t, 1, user.ID)
+}
+
 func TestUpdateUser(t *testing.T) {
 	dbmap := InitTestDB(false)
 
-	user := GetUserByID(1, dbmap)
-
-	user.Email = "xuhf@fenbi.com"
-	err := user.Save(dbmap)
+	user, err := GetUserByID(1, dbmap)
 	checkTestErr(err)
 
-	user = GetUserByID(1, dbmap)
+	user.Email = "xuhf@fenbi.com"
+	err = user.Save(dbmap)
+	checkTestErr(err)
+
+	user, err = GetUserByID(1, dbmap)
+	checkTestErr(err)
 
 	assert.Equal(t, "xuhf@fenbi.com", user.Email)
 }

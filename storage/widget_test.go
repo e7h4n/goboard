@@ -31,3 +31,16 @@ func TestQueryWidget(t *testing.T) {
 
 	assert.Len(t, widgets, 1)
 }
+
+func TestRemoveWidget(t *testing.T) {
+	dbmap := InitTestDB(false)
+
+	widget, err := GetWidget(1, dbmap)
+	checkTestErr(err)
+	checkTestErr(widget.Remove(dbmap))
+
+	widgets, err := QueryWidget(1, dbmap)
+	checkTestErr(err)
+
+	assert.Len(t, widgets, 0)
+}

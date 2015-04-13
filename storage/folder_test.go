@@ -39,3 +39,16 @@ func TestQueryFolder(t *testing.T) {
 	checkTestErr(err)
 	assert.Len(t, subFolders, 1)
 }
+
+func TestRemoveFolder(t *testing.T) {
+	dbmap := InitTestDB(false)
+
+	folder, err := GetFolder(1, dbmap)
+	checkTestErr(err)
+
+	checkTestErr(folder.Remove(dbmap))
+
+	rootFolders, err := QueryFolder(1, FolderRoot, dbmap)
+	checkTestErr(err)
+	assert.Len(t, rootFolders, 1)
+}

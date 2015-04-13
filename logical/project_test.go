@@ -19,10 +19,19 @@ func TestSaveProject(t *testing.T) {
 	user = &vo.User{Email: "user@fenbi.com"}
 	checkTestErr(SaveUser(user, ctx))
 
-	project := &vo.Project{Name: "Project"}
+	ctx.UserID = admin.ID
+	project := &vo.Project{Name: "XXX"}
 	checkTestErr(SaveProject(project, ctx))
+	uuid := project.UUID
 
 	assert.Equal(t, 1, project.ID)
+
+	project.Name = "Project"
+	project.UUID = "xxx"
+	checkTestErr(SaveProject(project, ctx))
+
+	assert.Equal(t, uuid, project.UUID)
+	assert.Equal(t, "Project", project.Name)
 }
 
 func TestGetProject(t *testing.T) {

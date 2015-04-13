@@ -21,12 +21,20 @@ func initUserTable(dbmap *gorp.DbMap) {
 }
 
 // GetUserByID will retrieve a user by specified user id
-func GetUserByID(id int, dbmap *gorp.DbMap) (user *User) {
-	err := dbmap.SelectOne(&user, "select * from users where id = ?", id)
-	if err != nil {
-		return nil
-	}
+func GetUserByID(id int, dbmap *gorp.DbMap) (user *User, err error) {
+	err = dbmap.SelectOne(&user, "select * from users where id = ?", id)
+	return
+}
 
+// GetUserBySalt will retrieve a user by specified user id
+func GetUserBySalt(salt string, dbmap *gorp.DbMap) (user *User, err error) {
+	err = dbmap.SelectOne(&user, "select * from users where salt = ?", salt)
+	return
+}
+
+// GetUserByEmail will retrieve a user by specified user id
+func GetUserByEmail(email string, dbmap *gorp.DbMap) (user *User, err error) {
+	err = dbmap.SelectOne(&user, "select * from users where email = ?", email)
 	return
 }
 
@@ -36,8 +44,8 @@ func GetAllUser(dbmap *gorp.DbMap) (users []User, err error) {
 	return
 }
 
-// QueryUserByEmail will retrieve users match specified email address snippet
-func QueryUserByEmail(email string, dbmap *gorp.DbMap) (users []User, err error) {
+// QueryUser will retrieve users match specified email address snippet
+func QueryUser(email string, dbmap *gorp.DbMap) (users []User, err error) {
 	_, err = dbmap.Select(&users, "select * from users where email like ?", "%"+email+"%")
 	if err != nil {
 		return nil, err
