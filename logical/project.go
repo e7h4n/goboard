@@ -6,7 +6,7 @@ import (
 )
 
 // QueryProject will retrieve all projects
-func QueryProject(projectID int, ctx *Context) (projects []vo.Project, err error) {
+func QueryProject(ctx *Context) (projects []vo.Project, err error) {
 	mProjects, err := storage.QueryProject(ctx.UserID, ctx.DbMap)
 
 	projects = make([]vo.Project, len(mProjects))
@@ -57,7 +57,11 @@ func SaveProject(project *vo.Project, ctx *Context) (err error) {
 
 // RemoveProject will delete a project
 func RemoveProject(projectID int, ctx *Context) (err error) {
-	project := &storage.Project{ID: projectID}
+	project, err := storage.GetProject(projectID, ctx.UserID, ctx.DbMap)
+	if err != nil {
+		return err
+	}
+
 	err = project.Remove(ctx.DbMap)
 	return
 }
