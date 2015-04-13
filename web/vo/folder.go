@@ -6,6 +6,9 @@ import (
 	"github.com/yuantiku/goboard/storage"
 )
 
+// FolderRoot is id of root folder level
+const FolderRoot = storage.FolderRoot
+
 // Folder is view object for storage.Folder
 type Folder struct {
 	ID        int       `json:"id"`
