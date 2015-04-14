@@ -20,6 +20,11 @@ func TestSaveFolder(t *testing.T) {
 	checkTestErr(err)
 	assert.Equal(t, 2, folder.ID)
 
+	folder.Name = "root2_"
+	err = SaveFolder(1, vo.FolderRoot, folder, ctx)
+	checkTestErr(err)
+	assert.Equal(t, "root2_", folder.Name)
+
 	folder = &vo.Folder{Name: "sub"}
 	err = SaveFolder(1, 2, folder, ctx)
 	checkTestErr(err)
