@@ -9,8 +9,6 @@ import (
 // Record is view object for storage.Record
 type Record struct {
 	ID           int64     `json:"id"`
-	CreatedAt    time.Time `json:"createdAt"`
-	UpdatedAt    time.Time `json:"updatedAt"`
 	DataSourceID int       `json:"dataSourceId"`
 	Value        float64   `json:"value"`
 	Year         int       `json:"year"`
@@ -20,14 +18,15 @@ type Record struct {
 	Minute       int       `json:"minute"`
 	Second       int       `json:"second"`
 	DateTime     time.Time `json:"dateTime"`
+	Dim1         string    `json:"dim1"`
+	Dim2         string    `json:"dim2"`
+	Dim3         string    `json:"dim3"`
 }
 
 // Model convert vo to storage model
 func (p *Record) Model() (record *storage.Record) {
 	return &storage.Record{
 		ID:           p.ID,
-		CreatedAt:    p.CreatedAt,
-		UpdatedAt:    p.UpdatedAt,
 		DataSourceID: p.DataSourceID,
 		Value:        p.Value,
 		Year:         p.Year,
@@ -36,15 +35,16 @@ func (p *Record) Model() (record *storage.Record) {
 		Hour:         p.Hour,
 		Minute:       p.Minute,
 		Second:       p.Second,
-		DateTime:     p.DateTime}
+		DateTime:     p.DateTime,
+		Dim1:         p.Dim1,
+		Dim2:         p.Dim2,
+		Dim3:         p.Dim3}
 }
 
 // NewRecord convert storage model to vo
 func NewRecord(r *storage.Record) (record *Record) {
 	return &Record{
 		ID:           r.ID,
-		CreatedAt:    r.CreatedAt,
-		UpdatedAt:    r.UpdatedAt,
 		DataSourceID: r.DataSourceID,
 		Value:        r.Value,
 		Year:         r.Year,
@@ -53,5 +53,8 @@ func NewRecord(r *storage.Record) (record *Record) {
 		Hour:         r.Hour,
 		Minute:       r.Minute,
 		Second:       r.Second,
-		DateTime:     r.DateTime}
+		DateTime:     r.DateTime,
+		Dim1:         r.Dim1,
+		Dim2:         r.Dim2,
+		Dim3:         r.Dim3}
 }

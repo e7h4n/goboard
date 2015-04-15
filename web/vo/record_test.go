@@ -10,8 +10,6 @@ import (
 func TestRecordModel(t *testing.T) {
 	r := &Record{
 		ID:           1,
-		CreatedAt:    time.Now(),
-		UpdatedAt:    time.Now(),
 		DataSourceID: 1,
 		Value:        100,
 		Year:         2014,
@@ -25,8 +23,6 @@ func TestRecordModel(t *testing.T) {
 
 	assert.NotNil(t, record)
 	assert.Equal(t, r.ID, record.ID)
-	assert.Equal(t, r.CreatedAt, record.CreatedAt)
-	assert.Equal(t, r.UpdatedAt, record.UpdatedAt)
 	assert.Equal(t, r.DataSourceID, record.DataSourceID)
 	assert.Equal(t, r.Value, record.Value)
 	assert.Equal(t, r.Year, record.Year)
@@ -39,8 +35,6 @@ func TestRecordModel(t *testing.T) {
 
 	r = NewRecord(record)
 	assert.Equal(t, r.ID, record.ID)
-	assert.Equal(t, r.CreatedAt, record.CreatedAt)
-	assert.Equal(t, r.UpdatedAt, record.UpdatedAt)
 	assert.Equal(t, r.DataSourceID, record.DataSourceID)
 	assert.Equal(t, r.Value, record.Value)
 	assert.Equal(t, r.Year, record.Year)

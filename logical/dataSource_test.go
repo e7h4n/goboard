@@ -9,7 +9,6 @@ import (
 
 func TestSaveDataSource(t *testing.T) {
 	ctx := initTest(true)
-	enableTrace(ctx)
 
 	dataSource := &vo.DataSource{Name: "Foo", Key: "Foo"}
 	err := SaveDataSource(1, dataSource, ctx)
