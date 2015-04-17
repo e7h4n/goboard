@@ -42,13 +42,13 @@ func TestRecrodToJSON(t *testing.T) {
 	jRecord, err := RecordToJSON(record, ctx)
 	checkTestErr(err)
 
-	assert.Equal(t, `{"dataSourceId":1,"dateTime":"0001-01-01T00:00:00Z","day":0,"dim3":"","hello":"foo","hour":0,"id":1,"minute":0,"month":0,"second":0,"value":0,"world":"bar","year":0}`, jRecord)
+	assert.Equal(t, `{"Dim3":"","dataSourceId":1,"dateTime":"0001-01-01T00:00:00Z","day":0,"hello":"foo","hour":0,"id":1,"minute":0,"month":0,"second":0,"value":0,"world":"bar","year":0}`, jRecord)
 }
 
 func TestRecordFromJSON(t *testing.T) {
 	ctx := initTest(false)
 
-	jRecord := `{"dataSourceId":1,"dateTime":"0001-01-01T00:00:00Z","day":0,"dim3":"","hello":"foo","hour":0,"id":1,"minute":0,"month":0,"second":0,"value":0,"world":"bar","year":0}`
+	jRecord := `{"Dim3":"","dataSourceId":1,"dateTime":"0001-01-01T00:00:00Z","day":0,"hello":"foo","hour":0,"id":1,"minute":0,"month":0,"second":0,"value":0,"world":"bar","year":0}`
 	record, err := RecrodFromJSON(jRecord, ctx)
 	checkTestErr(err)
 

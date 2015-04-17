@@ -1,6 +1,7 @@
 package vo
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/yuantiku/goboard/storage"
@@ -18,9 +19,9 @@ type Record struct {
 	Minute       int       `json:"minute"`
 	Second       int       `json:"second"`
 	DateTime     time.Time `json:"dateTime"`
-	Dim1         string    `json:"dim1"`
-	Dim2         string    `json:"dim2"`
-	Dim3         string    `json:"dim3"`
+	Dim1         string
+	Dim2         string
+	Dim3         string
 }
 
 // Model convert vo to storage model
@@ -57,4 +58,30 @@ func NewRecord(r *storage.Record) (record *Record) {
 		Dim1:         r.Dim1,
 		Dim2:         r.Dim2,
 		Dim3:         r.Dim3}
+}
+
+// ConvertDimensionFromKey convert a string-object map from dim1.Key to Dim1 by dimension configs
+func ConvertDimensionFromKey(dimensions []DimensionConfig, jsonMap map[string]interface{}) {
+	if len(dimensions) > 0 {
+		for i, v := range dimensions {
+			dimKey := fmt.Sprintf("Dim%d", i+1)
+			if val, ok := jsonMap[v.Key]; ok {
+				jsonMap[dimKey] = val
+				delete(jsonMap, v.Key)
+			}
+		}
+	}
+}
+
+// ConvertDimensionToKey convert a string-object map from Dim1 to dim1.Key by dimension configs
+func ConvertDimensionToKey(dimensions []DimensionConfig, jsonMap map[string]interface{}) {
+	if len(dimensions) > 0 {
+		for i, v := range dimensions {
+			dimKey := fmt.Sprintf("Dim%d", i+1)
+			if val, ok := jsonMap[dimKey]; ok {
+				jsonMap[v.Key] = val
+				delete(jsonMap, dimKey)
+			}
+		}
+	}
 }
