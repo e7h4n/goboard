@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/yuantiku/goboard/web/vo"
+	"github.com/perfectworks/goboard/web/vo"
 )
 
 func TestSaveWidget(t *testing.T) {

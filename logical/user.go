@@ -1,8 +1,8 @@
 package logical
 
 import (
-	"github.com/yuantiku/goboard/storage"
-	"github.com/yuantiku/goboard/web/vo"
+	"github.com/perfectworks/goboard/storage"
+	"github.com/perfectworks/goboard/web/vo"
 )
 
 // SaveUser will create or update a user

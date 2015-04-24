@@ -1,8 +1,8 @@
 package logical
 
 import (
-	"github.com/yuantiku/goboard/storage"
-	"github.com/yuantiku/goboard/web/vo"
+	"github.com/perfectworks/goboard/storage"
+	"github.com/perfectworks/goboard/web/vo"
 )
 
 // QueryDashboard will retrieve dashboards by project and user, show all public and user's private board

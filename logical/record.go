@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/yuantiku/goboard/storage"
-	"github.com/yuantiku/goboard/web/vo"
+	"github.com/perfectworks/goboard/storage"
+	"github.com/perfectworks/goboard/web/vo"
 )
 
 // SaveRecord create or update a record
@@ -30,6 +30,33 @@ func GetRecord(recordID int, ctx *Context) (record *vo.Record, err error) {
 	record = vo.NewRecord(mRecord)
 
 	return
+}
+
+// QueryRecord retrieve records by dataSourceID and filter
+func QueryRecord(dataSourceID int, filter storage.RecordFilter, ctx *Context) (records []vo.Record, err error) {
+	mRecords, err := storage.QueryRecord(dataSourceID, filter, ctx.DbMap)
+	if err != nil {
+		return nil, err
+	}
+
+	records = make([]vo.Record, len(mRecords))
+	for i, v := range mRecords {
+		records[i] = *vo.NewRecord(&v)
+	}
+
+	return
+}
+
+// ClearRecord remove all records belongs to specified data source
+func ClearRecord(dataSourceID int, ctx *Context) (err error) {
+	err = storage.ClearRecord(dataSourceID, ctx.DbMap)
+	return
+}
+
+// RemoveRecord remove a record
+func RemoveRecord(recordID int64, ctx *Context) (err error) {
+	mRecord := &storage.Record{ID: recordID}
+	return mRecord.Remove(ctx.DbMap)
 }
 
 // RecordToJSON covert vo.Record to json string

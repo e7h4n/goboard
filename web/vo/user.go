@@ -1,6 +1,6 @@
 package vo
 
-import "github.com/yuantiku/goboard/storage"
+import "github.com/perfectworks/goboard/storage"
 
 // User is view object for storage.User
 type User struct {

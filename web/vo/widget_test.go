@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/yuantiku/goboard/storage"
+	"github.com/perfectworks/goboard/storage"
 )
 
 func TestWidgetModel(t *testing.T) {

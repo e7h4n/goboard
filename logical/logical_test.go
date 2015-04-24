@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/yuantiku/goboard/storage"
+	"github.com/perfectworks/goboard/storage"
 
 	_ "github.com/mattn/go-sqlite3"
 	"gopkg.in/gorp.v1"

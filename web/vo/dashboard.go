@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/yuantiku/goboard/storage"
+	"github.com/perfectworks/goboard/storage"
 )
 
 // Dashboard is view object for storage.Dashboard

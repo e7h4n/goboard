@@ -175,3 +175,9 @@ func (r *Record) Remove(dbmap *gorp.DbMap) (err error) {
 	_, err = dbmap.Delete(r)
 	return
 }
+
+// ClearRecord remove all records belongs to specified data source
+func ClearRecord(dataSourceID int, dbmap *gorp.DbMap) (err error) {
+	_, err = dbmap.Exec("delete * from records where dataSourceID = ?", dataSourceID)
+	return
+}

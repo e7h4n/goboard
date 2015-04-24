@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/yuantiku/goboard/storage"
+	"github.com/perfectworks/goboard/storage"
 )
 
 // Record is view object for storage.Record

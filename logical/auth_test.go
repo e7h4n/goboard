@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/yuantiku/goboard/storage"
+	"github.com/perfectworks/goboard/storage"
 )
 
 var userAdmin *storage.User

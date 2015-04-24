@@ -3,7 +3,7 @@ package vo
 import (
 	"time"
 
-	"github.com/yuantiku/goboard/storage"
+	"github.com/perfectworks/goboard/storage"
 )
 
 // Project is view object for storage.Project

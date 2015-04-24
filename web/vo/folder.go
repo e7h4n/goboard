@@ -3,7 +3,7 @@ package vo
 import (
 	"time"
 
-	"github.com/yuantiku/goboard/storage"
+	"github.com/perfectworks/goboard/storage"
 )
 
 // FolderRoot is id of root folder level

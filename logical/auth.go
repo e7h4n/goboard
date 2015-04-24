@@ -1,7 +1,7 @@
 package logical
 
 import (
-	"github.com/yuantiku/goboard/storage"
+	"github.com/perfectworks/goboard/storage"
 )
 
 // AuthProject check user privilege to specified project
