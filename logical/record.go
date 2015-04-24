@@ -2,7 +2,6 @@ package logical
 
 import (
 	"encoding/json"
-	"log"
 
 	"github.com/perfectworks/goboard/storage"
 	"github.com/perfectworks/goboard/web/vo"
@@ -108,7 +107,6 @@ func RecrodFromJSON(jRecord string, ctx *Context) (record *vo.Record, err error)
 		return nil, err
 	}
 
-	log.Println(string(bRecord))
 	record = &vo.Record{}
 	err = json.Unmarshal(bRecord, record)
 	if err != nil {
